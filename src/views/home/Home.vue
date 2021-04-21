@@ -114,6 +114,7 @@ export default {
       // console.log(this.$refs.tabControl2.$el.offsetTop);
       this.tabOffsetTop = this.$refs.tabControl2.$el.offsetTop
     },
+    
     // 网络请求相关方法
     getHomeMultidata() {
       getHomeMultidata().then(res => {
