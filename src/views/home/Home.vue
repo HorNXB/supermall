@@ -41,6 +41,7 @@
 
   import {getHomeMultidata, getHomeGoods} from 'network/home'
   import {debounce} from 'common/utils'
+  import {itemListenerMixin} from 'common/mixin'
 export default {
   name:'Home',
   components: {
@@ -69,6 +70,7 @@ export default {
       saveY:0
     }
   },
+  mixins: [itemListenerMixin],
   computed: {
     showType() {
       return this.goods[this.currentType].list
@@ -79,7 +81,11 @@ export default {
     this.$refs.scroll.refresh()
   },
   deactivated() {
+    // 1.保存离开时的滚动位置
     this.saveY = this.$refs.scroll.saveScrollY()
+
+    // 2.取消itemload的全局监听
+    this.$bus.$off('itemImageLoad' ,this.itemImgListener)
   },
   methods: {
     // 事件监听相关方法
@@ -146,11 +152,7 @@ export default {
 
   },
   mounted() {
-     // 3.监听item中的图片是否加载完成
-    const refresh = debounce(this.$refs.scroll.refresh)
-    this.$bus.$on('itemImageLoad', () => {
-      this.$refs.scroll && refresh()
-    })
+    
   },
 }
 </script>

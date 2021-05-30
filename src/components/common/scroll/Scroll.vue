@@ -25,18 +25,21 @@ export default {
     }
   },
   methods: {
-    scrollTo(x, y, time=500){
+    scrollTo(x, y, time=500) {
       this.scroll && this.scroll.scrollTo(x, y, time)
     },
-    finishPullUp(){
+    finishPullUp() {
       this.scroll.finishPullUp();
     },
-    refresh(){
+    refresh() {
       // console.log('-----');
       this.scroll && this.scroll.refresh();
     },
-    saveScrollY(){
+    saveScrollY() {
       return this.scroll ? this.scroll.y : 0
+    },
+    scrollToElement(el, time) {
+      this.scroll.scrollToElement(el, time)
     }
   },
   mounted() {
